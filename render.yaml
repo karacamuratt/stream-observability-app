@@ -1,0 +1,52 @@
+services:
+  - type: web
+    name: streamlog-auth-service
+    runtime: node
+    rootDir: services/auth-service
+    plan: free
+    buildCommand: npm ci && npm run build
+    startCommand: npm run start:prod
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: SERVICE_NAME
+        value: auth-service
+      - key: KAFKA_BROKERS
+        sync: false
+      - key: KAFKA_USERNAME
+        sync: false
+      - key: KAFKA_PASSWORD
+        sync: false
+      - key: KAFKA_SASL_MECHANISM
+        value: scram-sha-256
+      - key: KAFKA_SSL
+        value: "true"
+      - key: KAFKA_CA_PEM
+        sync: false
+
+  - type: web
+    name: streamlog-log-processor
+    runtime: node
+    rootDir: services/log-processor
+    plan: free
+    buildCommand: npm ci && npm run build
+    startCommand: npm run start:prod
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: SERVICE_NAME
+        value: log-processor
+      - key: KAFKA_GROUP_ID
+        value: streamlog-log-processor
+      - key: KAFKA_BROKERS
+        sync: false
+      - key: KAFKA_USERNAME
+        sync: false
+      - key: KAFKA_PASSWORD
+        sync: false
+      - key: KAFKA_SASL_MECHANISM
+        value: scram-sha-256
+      - key: KAFKA_SSL
+        value: "true"
+      - key: KAFKA_CA_PEM
+        sync: false
