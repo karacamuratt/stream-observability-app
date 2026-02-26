@@ -46,7 +46,7 @@ services:
     container_name: datadog-agent
     environment:
       DD_API_KEY: ${DATADOG_API_KEY}
-      DD_SITE: datadoghq.eu
+      DD_SITE: app.datadoghq.eu
       DD_LOGS_ENABLED: "true"
       DD_APM_ENABLED: "true"
       DD_PROCESS_AGENT_ENABLED: "true"

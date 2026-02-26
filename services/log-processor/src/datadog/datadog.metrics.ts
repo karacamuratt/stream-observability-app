@@ -1,6 +1,7 @@
 import { client, v1 } from "@datadog/datadog-api-client";
 
-const site = process.env.DD_SITE || "datadoghq.eu";
+const rawSite = process.env.DD_SITE || "app.datadoghq.eu";
+const site = rawSite.replace(/^app\./, "");
 const configuration = client.createConfiguration({
     authMethods: {
         apiKeyAuth: process.env.DD_API_KEY!,

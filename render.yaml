@@ -50,3 +50,9 @@ services:
         value: "true"
       - key: KAFKA_CA_PEM
         sync: false
+      - key: DD_SITE
+        value: app.datadoghq.eu
+      - key: DD_API_KEY
+        sync: false
+      - key: DD_APP_KEY
+        sync: false
