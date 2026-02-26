@@ -2,10 +2,11 @@ import { client, v1 } from "@datadog/datadog-api-client";
 
 const rawSite = process.env.DD_SITE || "app.datadoghq.eu";
 const site = rawSite.replace(/^app\./, "");
+const hasDatadogKeys = Boolean(process.env.DD_API_KEY && process.env.DD_APP_KEY);
 const configuration = client.createConfiguration({
     authMethods: {
-        apiKeyAuth: process.env.DD_API_KEY!,
-        appKeyAuth: process.env.DD_APP_KEY!,
+        apiKeyAuth: process.env.DD_API_KEY || "",
+        appKeyAuth: process.env.DD_APP_KEY || "",
     },
 });
 
@@ -20,6 +21,10 @@ export async function ddCount(
     value: number,
     tags: string[] = []
 ) {
+    if (!hasDatadogKeys) {
+        return;
+    }
+
     const ts = Math.floor(Date.now() / 1000);
 
     await metricsApi.submitMetrics({

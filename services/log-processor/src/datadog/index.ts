@@ -20,7 +20,11 @@ export async function trackCount(
     tags: string[] = []
 ) {
     if (isProd) {
-        await apiCount(metric, value, tags);
+        try {
+            await apiCount(metric, value, tags);
+        } catch (err) {
+            console.error("Datadog metric submit failed", err);
+        }
     } else {
         statsd?.increment(metric, value, tags);
     }
