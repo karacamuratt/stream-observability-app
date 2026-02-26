@@ -4,7 +4,7 @@ services:
     runtime: node
     rootDir: services/auth-service
     plan: free
-    buildCommand: npm ci && npm run build
+    buildCommand: npm ci --include=dev && npm run build
     startCommand: npm run start:prod
     envVars:
       - key: NODE_ENV
@@ -29,7 +29,7 @@ services:
     runtime: node
     rootDir: services/log-processor
     plan: free
-    buildCommand: npm ci && npm run build
+    buildCommand: npm ci --include=dev && npm run build
     startCommand: npm run start:prod
     envVars:
       - key: NODE_ENV
